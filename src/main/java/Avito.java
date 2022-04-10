@@ -1,31 +1,41 @@
-import java.util.Collection;
-import java.util.List;
-
 public class Avito {
-    public static void main(String[] args) {
-        String input = "(()))(()()";
-        char open = 40;
+    private char open;
+    private char close;
+
+    public Avito(char open, char close) {
+        this.open = open;
+        this.close = close;
+    }
+
+    public char getOpen() {
+        return open;
+    }
+
+    public void setOpen(char open) {
+        this.open = open;
+    }
+
+    public char getClose() {
+        return close;
+    }
+
+    public void setClose(char close) {
+        this.close = close;
+    }
+
+    public boolean checkValue(String input) {
         int numOpen = 0;
         int numClose = 0;
-
-
-        for (int i = 0; i < input.length(); i++) {
-            if(input.charAt(i) == open){
+        for (char symbol : input.toCharArray()) {
+            if (symbol == open) {
                 numOpen++;
-            }else{
+            } else {
                 numClose++;
             }
-
-            if ((numOpen - numClose) < 0){
-                System.out.println("Ошибочка вышла закрылась несуществующая октрытая скобка");
-                break;
+            if ((numOpen - numClose) < 0 || symbol != open && symbol != close){
+                return false;
             }
         }
-        if ((numOpen - numClose) != 0){
-            System.out.println("Ошибочка вышла не соблюдается равеноство октрытых и закрытых скобок");
-        }else if((numOpen - numClose) == 0){
-            System.out.println("Послеовательность удовлетворяет условиям");
-        }
-
+        return (numOpen - numClose) == 0;
     }
 }
